@@ -1,4 +1,12 @@
 {
   "name": "my_test_app",
-  "displayName": "my_test_app"
+  "displayName": "MyTestApp",
+  "svgAppIcon": {
+    "foregroundPath": "./assets/appIcon/icon.svg",
+    "backgroundPath": "./assets/appIcon/icon-background.svg",
+    "platforms": ["android", "ios"],
+    "force": false,
+    "androidOutputPath": "./android/app/src/main/res",
+    "iosOutputPath": "./ios/MyAppName/Images.xcassets/AppIcon.appiconset"
+  }
 }
