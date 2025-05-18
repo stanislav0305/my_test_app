@@ -1,21 +1,15 @@
 import React, { Component } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet } from 'react-native'
 import SoundService from '@services/SoundService'
 import TestService from '@services/TestService'
 import { AudioColorAnswerModel, TestModel } from '@models/TestModel'
 import AudioColorButton from '@components/AudioColorButton'
-import { TestScreenProps } from '@navigation/RootStack';
+import { TestScreenProps } from '@ui/navigation/RootStackMTA'
 import { Mapper } from '@ui/Mapper'
 import { ITestOptionsModel } from '@models/ITestOptionsModel'
-
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        padding: 20,
-        flexDirection: 'row',
-    }
-})
+import ScreenWrapper from '@components/ScreenWrapper'
+import { ViewMTA } from '@ui/components/themedComponents/ViewMTA'
+import TextMTA from '@ui/components/themedComponents/TextMTA'
 
 
 interface IState {
@@ -111,13 +105,13 @@ export default class Test extends Component<TestScreenProps, IState> {
         const { questionNum, questionCount, test, answersDisabled } = this.state
 
         return (
-            <>
-                <View>
-                    {(questionNum === -1) && <Text>Загрузка...</Text>}
-                    {((questionNum > -1) && (questionNum < questionCount)) && <Text>{questionNum} / {questionCount}</Text>}
-                    {(questionNum >= questionCount) && <Text>Конец</Text>}
-                </View>
-                <View style={styles.container}>
+            <ScreenWrapper title={'Тест'}>
+                <ViewMTA>
+                    {(questionNum === -1) && <TextMTA>Загрузка...</TextMTA>}
+                    {((questionNum > -1) && (questionNum < questionCount)) && <TextMTA>{questionNum} / {questionCount}</TextMTA>}
+                    {(questionNum >= questionCount) && <TextMTA>Конец</TextMTA>}
+                </ViewMTA>
+                <ViewMTA style={styles.container}>
                     {((questionNum > -1) && (questionNum < questionCount)) && (
                         <>
                             {
@@ -132,8 +126,15 @@ export default class Test extends Component<TestScreenProps, IState> {
                             }
                         </>
                     )}
-                </View>
-            </>
+                </ViewMTA>
+            </ScreenWrapper>
         )
     }
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        flexDirection: 'row',
+    }
+})

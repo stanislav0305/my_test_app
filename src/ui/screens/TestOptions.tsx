@@ -1,12 +1,15 @@
-import { Component } from 'react';
-import { Text, TextInput, View } from 'react-native'
-import NavigationButton from '@navigation/NavigationButton'
-import RadioGroup from 'react-native-radio-buttons-group';
-import ScreenHeader from '@components/ScreenHeader'
+import { Component } from 'react'
+import NavButton from '@ui/navigation/NavButton'
 import { InputNumberType, passCountMax, questionCountInOnePassMax, type QuestionOrderType, TestPassModeType } from '@models/ITestOptionsModel'
 import { questionOrderRadioBtns, ITestOptionsViewModel, testPassModeRadioBtns } from '@viewModels/ITestOptionsViewModel'
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native'
 import TestService from '@services/TestService'
+import TextMTA from '@ui/components/themedComponents/TextMTA'
+import { ViewMTA } from '@ui/components/themedComponents/ViewMTA'
+import Spacer from '@ui/components/Spacer'
+import ViewCardMTA from '@ui/components/themedComponents/ViewCardMTA copy'
+import RadioGroupMTA from '@ui/components/themedComponents/RadioGroupMTA'
+import TextInputMTA from '@ui/components/themedComponents/TextInputMTA'
 
 
 export default class TestOptions extends Component<{}, ITestOptionsViewModel> {
@@ -97,21 +100,20 @@ export default class TestOptions extends Component<{}, ITestOptionsViewModel> {
 
     render() {
         const { questionOrder, testPassMode, questionCountInOnePass, passCount, totalQuestionCount } = this.state
-
         return (
-            <>
-                <ScreenHeader title={'Настройки теста'} />
-                <View style={styles.mainView}>
-
-                    <Text>Порядок вопросов в тесте</Text>
-                    <RadioGroup
+            <ViewCardMTA style={{ flex: 1 }}>
+                <ViewMTA style={styles.page}>
+                    <Spacer size={10} />
+                    <TextMTA>Порядок вопросов в тесте</TextMTA>
+                    <RadioGroupMTA
                         radioButtons={questionOrderRadioBtns}
                         onPress={this.questionOrderOnPress}
                         selectedId={questionOrder}
                         layout='row'
                     />
-                    <Text>Режим прохождения теста</Text>
-                    <RadioGroup
+                    <Spacer size={10} />
+                    <TextMTA>Режим прохождения теста</TextMTA>
+                    <RadioGroupMTA
                         radioButtons={testPassModeRadioBtns}
                         onPress={this.testPassModeOnPress}
                         selectedId={testPassMode}
@@ -120,8 +122,9 @@ export default class TestOptions extends Component<{}, ITestOptionsViewModel> {
                     {
                         testPassMode === 'byParts' && (
                             <>
-                                <Text>Количество вопросов в 1 проходе (макс. {questionCountInOnePassMax})</Text>
-                                <TextInput
+                                <Spacer size={10} />
+                                <TextMTA>Количество вопросов в 1 проходе (макс. {questionCountInOnePassMax})</TextMTA>
+                                <TextInputMTA
                                     style={styles.input}
                                     onChangeText={this.questionCountInOnePassOnChange}
                                     value={questionCountInOnePass.toString()}
@@ -130,34 +133,37 @@ export default class TestOptions extends Component<{}, ITestOptionsViewModel> {
                             </>
                         )
                     }
-                    <Text>Количество проходов (макс. {passCountMax})</Text>
-                    <TextInput
+                    <Spacer size={10} />
+                    <TextMTA>Количество проходов (макс. {passCountMax})</TextMTA>
+                    <TextInputMTA
                         style={styles.input}
                         onChangeText={this.passCountOnChange}
                         value={passCount.toString()}
                         keyboardType="numeric"
                     />
-                    <Text>И того количество вопросов в тесте: {totalQuestionCount}</Text>
-                    <NavigationButton
+                    <Spacer size={10} />
+                    <TextMTA>И того количество вопросов в тесте: {totalQuestionCount}</TextMTA>
+                    <Spacer size={20} />
+                    <NavButton
                         title='Старт'
                         screenName='Test'
                         screenProps={{ ...this.state }}
-                        buttonDisabled={totalQuestionCount === 0}
+                        disabled={totalQuestionCount === 0}
                     />
-                </View>
-            </>
+                </ViewMTA>
+            </ViewCardMTA>
         )
     }
 }
 
 const styles = StyleSheet.create({
-    mainView: {
-        padding: 10
-    },
     input: {
         height: 40,
-        margin: 12,
         borderWidth: 1,
-        padding: 10,
+        padding: 10
     },
+    page: {
+        flex: 1,
+        padding: 10
+    }
 })

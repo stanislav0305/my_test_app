@@ -1,22 +1,9 @@
 import * as React from 'react'
-import { GestureResponderEvent, Pressable, StyleSheet, Text } from 'react-native'
+import { GestureResponderEvent, Pressable, PressableProps, StyleProp, StyleSheet, Text, ViewStyle } from 'react-native'
 import { AudioColorAnswerModel } from '@models/TestModel'
 
 
-const styles = StyleSheet.create({
-    btn: {
-        flex: 1,
-        backgroundColor: '#3498db',
-        opacity: 1
-    },
-    btnDisabled: {
-        flex: 1,
-        backgroundColor: '#3498db',
-        opacity: 0.3
-    }
-})
-
-interface TProps {
+export interface AudioColorButtonProps extends PressableProps {
     index: number,
     answer: AudioColorAnswerModel,
     showText: boolean,
@@ -24,14 +11,30 @@ interface TProps {
     onPress: ((event: GestureResponderEvent) => void) | null | undefined
 }
 
-export default function AudioColorButton(props: TProps) {
-    const { index, answer, showText, onPress } = props
-    const mainStyle = props.disabled === true ? styles.btnDisabled : styles.btn
-    const style = { ...mainStyle, backgroundColor: answer.color }
+export default function AudioColorButton({ index, answer, showText, onPress, disabled, style, ...props }: AudioColorButtonProps) {
+    const newStyle = [{
+        ...(disabled === true ? styles.btnDisabled : styles.btn),
+        backgroundColor: answer.color
+    }, style as StyleProp<ViewStyle>]
 
     return (
-        <Pressable key={`answer-${index}`} style={style} onPress={onPress} disabled={props.disabled}>
+        <Pressable key={`answer-${index}`} style={newStyle} onPress={onPress} disabled={disabled} {...props}>
             {showText === true && <Text key={`text-${index}`}>{index} {answer.color}</Text>}
         </Pressable>
     )
 }
+
+const btnBase = {
+    flex: 1
+}
+
+const styles = StyleSheet.create({
+    btn: {
+        ...btnBase,
+        opacity: 1
+    },
+    btnDisabled: {
+        ...btnBase,
+        opacity: 0.3
+    }
+})

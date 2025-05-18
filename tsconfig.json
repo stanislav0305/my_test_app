@@ -1,12 +1,41 @@
 {
   "compilerOptions": {
-    "baseUrl": "./src"
+    "baseUrl": "./src",
+    "paths": {
+      "tests": ["tests/"],
+
+      "@entities/*": ["dal/entities/*"],
+      "@entities": ["dal/entities"],
+      "@repositories/*": ["dal/repositories/*"],
+      "@repositories": ["dal/repositories"],
+
+      "@bll/*": ["bll/*"],
+      "@bll": ["bll"],
+      "@services/*": ["bll/services/*"],
+      "@services": ["bll/services"],
+      "@models/*": ["bll/models/*"],
+      "@models": ["bll/models"],
+
+      "@ui/*": ["ui/*"],
+      "@ui": ["ui"],
+      "@components/*": ["ui/components/*"],
+      "@components": ["ui/components"],
+      "@navigation/*": ["ui/navigation/*"],
+      "@navigation": ["ui/navigation"],
+      "@screens/*": ["ui/screens/*"],
+      "@screens": ["ui/screens"],
+      "@viewModels/*": ["ui/viewModels/*"],
+      "@viewModels": ["ui/viewModels"],
+
+      "@utils/*": ["utils/*"],
+      "@utils": ["utils"]
+    }
   },
   "include": ["src/**/*", "__tests__/**/*"],
   "extends": "@react-native/typescript-config/tsconfig.json",
   "exclude": [
     "node_modules",
-    //"babel.config.js",
+    "babel.config.js",
     "metro.config.js",
     "jest.config.js"
   ]

@@ -8,6 +8,7 @@ module.exports = {
         extensions: ['.ios.js', '.android.js', '.js', '.ts', '.tsx', '.json'],
         alias: {
           tests: ['./tests/'],
+
           '@entities/*': ['./src/dal/entities/*'],
           '@entities': ['./src/dal/entities'],
           '@repositories/*': ['./src/dal/repositories/*'],

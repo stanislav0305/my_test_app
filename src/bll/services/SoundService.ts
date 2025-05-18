@@ -1,5 +1,5 @@
-import Sound from 'react-native-sound';
-import NumberHelper from '@utils/numberHelper';
+import Sound from 'react-native-sound'
+import NumberHelper from '@utils/numberHelper'
 Sound.setCategory('Playback')
 
 
@@ -22,7 +22,7 @@ export default class SoundService {
         const sound = new Sound(filenameOrFile, Sound.MAIN_BUNDLE, error => {
             if (error) {
                 console.error('Error loading sound', error)
-                return;
+                return
             }
         })
 
@@ -60,20 +60,20 @@ export default class SoundService {
     public static testPlay() {
         var whoosh = new Sound('prefect_correct.mp3', Sound.MAIN_BUNDLE, (error) => {
             if (error) {
-                console.log('failed to load the sound', error);
-                return;
+                console.log('failed to load the sound', error)
+                return
             }
             // loaded successfully
-            console.log('duration in seconds: ' + whoosh.getDuration() + 'number of channels: ' + whoosh.getNumberOfChannels());
+            console.log('duration in seconds: ' + whoosh.getDuration() + 'number of channels: ' + whoosh.getNumberOfChannels())
 
             // Play the sound with an onEnd callback
             whoosh.play((success) => {
                 if (success) {
-                    console.log('successfully finished playing');
+                    console.log('successfully finished playing')
                 } else {
-                    console.log('playback failed due to audio decoding errors');
+                    console.log('playback failed due to audio decoding errors')
                 }
-            });
-        });
+            })
+        })
     }
 }
