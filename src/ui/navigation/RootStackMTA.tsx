@@ -7,9 +7,11 @@ import TestOptions from '@screens/TestOptions'
 import { ITestOptionsViewModel } from '@viewModels/ITestOptionsViewModel'
 import { useMaterialYouTheme } from '@ui/styles/Theme'
 import { StyleSheet } from 'react-native'
+import TestResults from '@ui/screens/TestResults'
+import { ITestResultsViewModel } from '@ui/viewModels/ITestResultsViewModel'
 
 
-export type ScreenNames = 'Home' | 'AppSettings' | 'Test' | 'TestOptions'
+export type ScreenNames = 'Home' | 'AppSettings' | 'Test' | 'TestOptions' | 'TestResults'
 
 //export type RootStackParamList = Record<ScreenNames[number], undefined>
 export type RootStackParamList = {
@@ -17,8 +19,10 @@ export type RootStackParamList = {
     AppSettings: undefined
     Test: { viewModel: ITestOptionsViewModel }
     TestOptions: undefined
+    TestResults: { viewModel: ITestResultsViewModel }
 }
 export type TestScreenProps = NativeStackScreenProps<RootStackParamList, 'Test'>
+export type TestResultsScreenProps = NativeStackScreenProps<RootStackParamList, 'TestResults'>
 
 export interface ScreenProps<T extends keyof RootStackParamList> { // T is one of Home|Test|TestOptions
     props: NativeStackNavigationProp<RootStackParamList, T>
@@ -45,6 +49,7 @@ export default function RootStack() {
             <Stack.Screen name='AppSettings' component={AppSettings} options={{ title: 'Настройки', headerShown: false }} />
             <Stack.Screen name='Test' component={Test} options={{ title: 'Тест', headerShown: false }} />
             <Stack.Screen name='TestOptions' component={TestOptions} options={{ title: 'Настройки теста' }} />
+            <Stack.Screen name='TestResults' component={TestResults} options={{ title: 'Результаты теста' }} />
         </Stack.Navigator>
     )
 }

@@ -4,19 +4,22 @@ import SoundService from '@services/SoundService'
 import TestService from '@services/TestService'
 import { AudioColorAnswerModel, TestModel } from '@models/TestModel'
 import AudioColorButton from '@components/AudioColorButton'
-import { TestScreenProps } from '@ui/navigation/RootStackMTA'
+import { StackNavigation, TestScreenProps } from '@ui/navigation/RootStackMTA'
 import { Mapper } from '@ui/Mapper'
 import { ITestOptionsModel } from '@models/ITestOptionsModel'
 import ScreenWrapper from '@components/ScreenWrapper'
 import { ViewMTA } from '@ui/components/themedComponents/ViewMTA'
 import TextMTA from '@ui/components/themedComponents/TextMTA'
+import { ITestResultsViewModel } from '@ui/viewModels/ITestResultsViewModel'
 
 
 interface IState {
     questionNum: number,
     questionCount: number,
+    questionReplay: boolean,
     test: TestModel,
     answersDisabled: boolean,
+    testResults: ITestResultsViewModel
 }
 
 export default class Test extends Component<TestScreenProps, IState> {
@@ -31,8 +34,13 @@ export default class Test extends Component<TestScreenProps, IState> {
         this.state = {
             questionNum: -1,
             questionCount: testModel.questions.length,
+            questionReplay: false,
             test: testModel,
             answersDisabled: true,
+            testResults: {
+                questionCount: testModel.questions.length,
+                rightAnswerCount: 0,
+            }
         }
 
         console.log('start')
@@ -69,7 +77,14 @@ export default class Test extends Component<TestScreenProps, IState> {
 
         this.setState(prevData => ({
             ...prevData,
-            answersDisabled: true
+            answersDisabled: true,
+            questionReplay: prevData.questionReplay ? true : !answer.isCorrect,
+            testResults: {
+                ...prevData.testResults,
+                rightAnswerCount: (answer.isCorrect && !prevData.questionReplay)
+                    ? prevData.testResults.rightAnswerCount + 1
+                    : prevData.testResults.rightAnswerCount,
+            }
         }),
             () => {
                 SoundService.playSound(answer.value, answer.isCorrect ? this.playSuccessResultSound : this.playBadResultSound)
@@ -88,10 +103,16 @@ export default class Test extends Component<TestScreenProps, IState> {
     }
 
     nextQuestionState = () => {
-        this.setState(prevData => ({
-            ...prevData,
-            questionNum: prevData.questionNum + 1,
-        }))
+        if (this.state.questionNum + 1 >= this.state.questionCount) {
+            this.props.navigation.navigate('TestResults', { viewModel: this.state.testResults })
+        }
+        else {
+            this.setState(prevData => ({
+                ...prevData,
+                questionNum: prevData.questionNum + 1,
+                questionReplay: false,
+            }))
+        }
     }
 
     resetQuestionState = () => {
@@ -109,7 +130,6 @@ export default class Test extends Component<TestScreenProps, IState> {
                 <ViewMTA>
                     {(questionNum === -1) && <TextMTA>Загрузка...</TextMTA>}
                     {((questionNum > -1) && (questionNum < questionCount)) && <TextMTA>{questionNum} / {questionCount}</TextMTA>}
-                    {(questionNum >= questionCount) && <TextMTA>Конец</TextMTA>}
                 </ViewMTA>
                 <ViewMTA style={styles.container}>
                     {((questionNum > -1) && (questionNum < questionCount)) && (
@@ -127,7 +147,7 @@ export default class Test extends Component<TestScreenProps, IState> {
                         </>
                     )}
                 </ViewMTA>
-            </ScreenWrapper>
+            </ScreenWrapper >
         )
     }
 }
