@@ -17,6 +17,7 @@ export interface AdditionalOptionsModel {
 }
 
 export interface TestModel {
+    id: string
     name: string
     additional: AdditionalOptionsModel
     questions: QuestionModel[]

@@ -4,7 +4,7 @@ import { ViewMTA } from '../components/themedComponents/ViewMTA';
 import TextMTA from '../components/themedComponents/TextMTA';
 import { TestResultsScreenProps } from '@ui/navigation/RootStackMTA';
 import NavButton from '@ui/navigation/NavButton';
-import ViewCardMTA from '@ui/components/themedComponents/ViewCardMTA copy';
+import ViewCardMTA from '@ui/components/themedComponents/ViewCardMTA';
 import Spacer from '@ui/components/Spacer';
 
 const COLORS = {

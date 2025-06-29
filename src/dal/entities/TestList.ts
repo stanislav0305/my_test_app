@@ -16,8 +16,25 @@ export interface AdditionalOptions {
     incorrectPhrases: FileName[]
 }
 
+
+export type QuestionOrderType = 'series' | 'random'
+export type TestPassModeType = 'full' | 'byParts'
+
+export interface TestOptions {
+    passMode: TestPassModeType
+    partsOptions: PartsOptions | null
+}
+
+export interface PartsOptions {
+    count: number //part count in test
+    size: number //question count in one part
+    order: QuestionOrderType //questions order in one part
+}
+
 export interface Test {
+    id: string
     name: string
+    options: TestOptions
     additional: AdditionalOptions
     questions: Question[]
 }
@@ -29,6 +46,7 @@ export interface TestList {
 export const testsJson = {
     "tests": [
         {
+            "id": 1,
             "name": "Тест цветов",
             "additional": {
                 "correctPhrases": [

@@ -9,9 +9,10 @@ import { useMaterialYouTheme } from '@ui/styles/Theme'
 import { StyleSheet } from 'react-native'
 import TestResults from '@ui/screens/TestResults'
 import { ITestResultsViewModel } from '@ui/viewModels/ITestResultsViewModel'
+import Counter from '@ui/screens/Counter'
 
 
-export type ScreenNames = 'Home' | 'AppSettings' | 'Test' | 'TestOptions' | 'TestResults'
+export type ScreenNames = 'Home' | 'AppSettings' | 'Test' | 'TestOptions' | 'TestResults' | 'Counter'
 
 //export type RootStackParamList = Record<ScreenNames[number], undefined>
 export type RootStackParamList = {
@@ -20,6 +21,7 @@ export type RootStackParamList = {
     Test: { viewModel: ITestOptionsViewModel }
     TestOptions: undefined
     TestResults: { viewModel: ITestResultsViewModel }
+    Counter: undefined
 }
 export type TestScreenProps = NativeStackScreenProps<RootStackParamList, 'Test'>
 export type TestResultsScreenProps = NativeStackScreenProps<RootStackParamList, 'TestResults'>
@@ -50,6 +52,8 @@ export default function RootStack() {
             <Stack.Screen name='Test' component={Test} options={{ title: 'Тест', headerShown: false }} />
             <Stack.Screen name='TestOptions' component={TestOptions} options={{ title: 'Настройки теста' }} />
             <Stack.Screen name='TestResults' component={TestResults} options={{ title: 'Результаты теста' }} />
+
+            <Stack.Screen name='Counter' component={Counter} options={{ title: 'Counter' }} />
         </Stack.Navigator>
     )
 }

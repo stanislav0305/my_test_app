@@ -2,7 +2,7 @@ import { ITestOptionsModel, modelDefault } from '@models/ITestOptionsModel'
 import { ITestOptionsViewModel, viewModelDefault } from '@viewModels/ITestOptionsViewModel'
 
 
-export class Mapper {
+export class MapperUI {
     static toModel(vm: ITestOptionsViewModel): ITestOptionsModel {
         if (!vm) {
             return { ...modelDefault }

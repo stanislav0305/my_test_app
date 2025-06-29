@@ -7,7 +7,7 @@ import TestService from '@services/TestService'
 import TextMTA from '@ui/components/themedComponents/TextMTA'
 import { ViewMTA } from '@ui/components/themedComponents/ViewMTA'
 import Spacer from '@ui/components/Spacer'
-import ViewCardMTA from '@ui/components/themedComponents/ViewCardMTA copy'
+import ViewCardMTA from '@ui/components/themedComponents/ViewCardMTA'
 import RadioGroupMTA from '@ui/components/themedComponents/RadioGroupMTA'
 import TextInputMTA from '@ui/components/themedComponents/TextInputMTA'
 

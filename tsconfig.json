@@ -4,6 +4,8 @@
     "paths": {
       "tests": ["tests/"],
 
+      "@dal/*": ["dal/*"],
+      "@dal": ["dal"],
       "@entities/*": ["dal/entities/*"],
       "@entities": ["dal/entities"],
       "@repositories/*": ["dal/repositories/*"],

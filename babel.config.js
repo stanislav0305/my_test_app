@@ -9,6 +9,8 @@ module.exports = {
         alias: {
           tests: ['./tests/'],
 
+          '@dal/*': ['./src/dal/*'],
+          '@dal': ['./src/dal'],
           '@entities/*': ['./src/dal/entities/*'],
           '@entities': ['./src/dal/entities'],
           '@repositories/*': ['./src/dal/repositories/*'],

@@ -1,4 +1,4 @@
-import { TestList, testsJson } from '@entities/TestList'
+import { TestList, testsJson } from '@dal/entities/TestList'
 
 class TestRepository {
     constructor() {

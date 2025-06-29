@@ -1,9 +1,9 @@
-import { TestList, Test, Question, AudioColorAnswer } from '@entities/TestList'
+import { TestList, Test, Question, AudioColorAnswer } from '@dal/entities/TestList'
 import { TestModel, AudioColorAnswerModel } from '@models/TestModel'
 import testRepository from '@repositories/TestRepository'
 import SoundService from '@services/SoundService'
 import { ITestOptionsModel } from '@models/ITestOptionsModel'
-import { Mapper } from '@bll/Mapper'
+import { MapperBLL } from '@bll/MapperBLL'
 
 
 type IncorrectAnswersGenType = 'fromRandomOtherQuestionsCorrectAnswers' | undefined
@@ -24,14 +24,25 @@ export class TestService {
         return testList.tests[0].questions.length
     }
 
+    /*
     getTest(opt: ITestOptionsModel): TestModel {
         const testList: TestList = testRepository.getTests()
-        let test: Test = Mapper.toEntity(testList.tests[0], opt)
+        let test: Test = MapperBLL.toEntity(testList.tests[0], opt)
 
-        const fileNames = Mapper.toFileNames(test)
+        const fileNames = MapperBLL.toFileNames(test)
         SoundService.loadAllSounds(fileNames)
 
-        const testModel = Mapper.toModel(test, opt, this)
+        const testModel = MapperBLL.toModel(test, opt, this)
+        console.log('testModel', testModel)
+
+        return testModel
+    }*/
+
+    getTest(opt: ITestOptionsModel): TestModel {
+        const testList: TestList = testRepository.getTests()
+        let test: Test = MapperBLL.toEntity(testList.tests[0], opt)
+
+        const testModel = MapperBLL.toModel(test, opt, this)
         console.log('testModel', testModel)
 
         return testModel

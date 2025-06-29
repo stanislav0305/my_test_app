@@ -1,11 +1,11 @@
-import { AudioColorAnswer, FileName, Question, Test } from '@entities/TestList'
+import { AudioColorAnswer, FileName, Question, Test } from '@dal/entities/TestList'
 import { ITestOptionsModel } from '@models/ITestOptionsModel'
 import { AdditionalOptionsModel, AudioColorAnswerModel, QuestionModel, TestModel } from '@models/TestModel'
 import { TestService } from '@services/TestService'
 import ArrayHelper from '@utils/arrayHelper'
 
 
-export class Mapper {
+export class MapperBLL {
     static toEntity(entity: Test, opt: ITestOptionsModel): Test {
         let m: Test = {
             ...entity,
@@ -74,7 +74,7 @@ export class Mapper {
         return model
     }
 
-    static toFileNames(test: Test): FileName[] {
+    static toFileNames(test: TestModel): FileName[] {
         const fileNames: FileName[] = []
 
         test.additional.correctPhrases.forEach((phrase: FileName) => {
